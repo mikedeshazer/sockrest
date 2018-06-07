@@ -41,6 +41,9 @@ No worries! With this library, you can now consume a Websocket lib the same way 
 Not sure if the title is accurate, but you get the point if you're looking at this README, so let's just go with it.
 
 
+## You can run the example in example.html 
+
+
 ## TODOS
 
 1. Make it work for Angular
