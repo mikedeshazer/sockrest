@@ -1,0 +1,29 @@
+<html>
+
+	<title>Example Websocket/RESTful Endpoint Agnostic Consumer</title>
+	<head>
+		<script src="libs/jquery-3.3.1.min.js"></script>
+		<script src="libs/sockrest.js"></script>	
+	</head>
+
+	<body>
+		
+
+	</body>
+
+	<script>
+
+		function exampleSocketToRestFunc(){
+
+			$.ajaxSocket({
+				url:'wss://echo.websocket.org',
+				data:"hello",
+				complete:function(transport){
+					console.log(transport);
+					alert(transport);
+				}
+			})
+		}
+	</script>
+
+</html>
