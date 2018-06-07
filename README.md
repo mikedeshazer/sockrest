@@ -1,6 +1,10 @@
 # sockREST: socketAndRESTfulClientCallAndHandlerConverter
 ### Client-side Javascript library that lets you consume Websocket Endpoints like HTTP (with AJAX) and Vice Versa
 
+##Guide
+
+Include libs/sockrest.js in your project
+
 If you have a websocket endpoint, but want to consume it in your app like you would do an jQuery AJAX call, run: 
 
 ```javascript
@@ -31,6 +35,8 @@ socket1.onmessage=function(event){
 }
 
 ```
+
+## WHY
 
 We are moving from a RESTful request world to a WebSocket world, but if you're an old schooler looking to do things (like consume APIs) and don't want to learn too many new tricks, this lib might be for you.
 
