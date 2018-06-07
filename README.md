@@ -1,7 +1,7 @@
 # sockREST: socketAndRESTfulClientCallAndHandlerConverter
 ### Client-side Javascript library that lets you consume Websocket Endpoints like HTTP (with AJAX) and Vice Versa
 
-##Guide
+## Guide
 
 Include libs/sockrest.js in your project
 
