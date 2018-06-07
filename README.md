@@ -5,7 +5,7 @@
 
 Include libs/sockrest.js in your project
 
-If you have a websocket endpoint, but want to consume it in your app like you would do an jQuery AJAX call, run: 
+If you have a websocket endpoint, but want to consume it in your app like you would do a jQuery AJAX call, run: 
 
 ```javascript
 
