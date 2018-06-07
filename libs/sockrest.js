@@ -16,13 +16,18 @@ $.ajaxSocket= function (params){
 
 	}
 
-	globalCompleteFunctions[globalFunctionIteration] = params.complete;
+	if(typeof params.success != "undefined"){
+		globalCompleteFunctions[globalFunctionIteration] = params.success;
+	}
+	else{
+		globalCompleteFunctions[globalFunctionIteration] = params.complete;
+	}
+	
 
 	try{
 
-		socket = new WebSocket(params.url);
+		var socket = new WebSocket(params.url);
 
-		
 
 		socket.onmessage = function(event) {
 	 	 	var message = event.data;
@@ -32,6 +37,17 @@ $.ajaxSocket= function (params){
 
 		socket.onopen = function(event) {
 	 	 	socket.send(params.data);
+		};
+
+		socket.onerror = function(event) {
+	 	 	
+	 	 	try{
+	 	 		params.error(event);
+	 	 	}
+	 	 	catch(err){
+	 	 		console.log(event)
+	 	 	}
+	 	 	
 		};
 		
 		
@@ -44,4 +60,61 @@ $.ajaxSocket= function (params){
 	}
 
 
+
+}
+
+
+
+var WebSocketRest= function(restURL){
+
+	this.restURL = restURL;
+	this.setSocketInterval = false;
+
+	this.send = function(sendParams){
+
+		$.ajax({
+		url:this.restURL,
+		data:sendParams,
+		complete:function(transport){
+			_this.onmessage(transport.responseText);
+		},
+		error:function(errInfo){
+			_this.onerror(transport.responseText);
+		}
+		})
+
+
+		
+			if(_this.setSocketInterval == false){
+				_this.setSocketInterval = true;
+				_this.interval = setInterval(function(){
+					_this.send(sendParams);
+				}, 3000);
+			}
+
+			
+		
+	}
+
+	//this is replaced by coder 
+	this.onmessage= function(msg){
+		console.log(msg)
+	}
+
+	this.onopen = function(){
+		console.log("onopen websocket event was not set. This is default message this is mock triggered even though this is a restful api being treated like a websocket.")
+	}
+	var _this = this;
+
+	setTimeout(function(){
+		_this.onopen();
+	},100)
+
+	this.close= function(){
+		clearInterval(this.interval);
+		console.log("mock socket closed.");
+	}
+
+
+	
 }

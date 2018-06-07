@@ -8,21 +8,86 @@
 
 	<body>
 		
+		<h2>Using A Websocket Endpoint Like A RESTful API Endpoint</h2>
+		<h3>Example Code:</h3>
+		<xmp style="background-color:black; border: 2px solid white; color:white; padding:10px">
+function exampleSocketToRestFunc(exampleData){
+
+	$.ajaxSocket({
+		url:'wss://echo.websocket.org',
+		data:exampleData,
+		complete:function(transport){
+			console.log(transport);
+			alert("Response from server: " + transport);
+		}
+	})
+
+}
+		</xmp>
+		Run <button onclick="exampleSocketToRestFunc('hello')">
+			exampleSocketToRestFunc("hello")
+		</button>
+
+		<br><br>
+		<hr>
+		<br>
+		<h2>Using A RESTful Endpoint Like A Websocket (ws://) Endpoint</h2>
+		<h3>Example Code:</h3>
+
+<xmp style="background-color:black; border: 2px solid white; color:white; padding:10px">
+function exampleRestToSocketFunc(exampleRData){
+
+	socket1 = new WebSocketRest('https://jsonplaceholder.typicode.com/posts/1');
+	
+	socket1.onopen = function(event) {
+	 	socket1.send(exampleRData);
+	};
+
+	socket1.onmessage=function(event){
+		alert("this returned from server: "+ event);
+	}
+}
+		</xmp>
+		Run <button onclick="exampleRestToSocketFunc('hello')">
+			exampleRestToSocketFunc("hello")
+		</button>
+
+		<br>
+		<br>
+		Run <button onclick="socket1.close()">
+			socket1.close();
+		</button> (to close the mock socket)
 
 	</body>
 
 	<script>
 
-		function exampleSocketToRestFunc(){
+
+		function exampleSocketToRestFunc(exampleData){
 
 			$.ajaxSocket({
 				url:'wss://echo.websocket.org',
-				data:"hello",
+				data:exampleData,
 				complete:function(transport){
 					console.log(transport);
-					alert(transport);
+					alert("Response from server: "+transport);
 				}
 			})
+		}
+
+
+		function exampleRestToSocketFunc(exampleRData){
+
+			socket1 = new WebSocketRest('https://jsonplaceholder.typicode.com/posts/1');
+			socket1.onopen = function(event) {
+	 	 		socket1.send(exampleRData);
+			};
+			socket1.onmessage=function(event){
+
+				alert("this returned from server: "+ event);
+			}
+
+
 		}
 	</script>
 
